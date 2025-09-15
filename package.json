@@ -5,10 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "npm run build:mkdir && npm run build:blob && npm run build:exe",
-    "build:mkdir": "if not exist dist mkdir dist",
+    "build": "npm run build:clean && npm run build:blob && npm run build:copy-node && npm run build:inject-sea",
+    "build:clean": "if exist dist rmdir /s /q dist && mkdir dist",
     "build:blob": "node --experimental-sea-config sea-config.json",
-    "build:exe": "copy /b node.exe+sea-prep.blob dist\\print-agent.exe"
+    "build:copy-node": "node -e \"require('fs').copyFileSync(process.execPath, 'dist/print-agent.exe')\"",
+    "build:inject-sea": "npx postject dist/print-agent.exe NODE_SEA_BLOB sea-prep.blob --sentinel-fuse NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -18,7 +19,8 @@
   },
   "devDependencies": {
     "nexe": "^4.0.0-beta.19",
-    "patch-package": "^8.0.0"
+    "patch-package": "^8.0.0",
+    "postject": "^1.0.0-alpha.6"
   },
   "overrides": {
     "usb": "1.9.2"

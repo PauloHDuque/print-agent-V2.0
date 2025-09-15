@@ -1,4 +1,3 @@
-// server.js (COM LIMPEZA DE STRING)
 const express = require("express");
 const cors = require("cors");
 const escpos = require("escpos");
