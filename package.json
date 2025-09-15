@@ -1,0 +1,26 @@
+{
+  "name": "print-agent-2.0",
+  "version": "2.0.0",
+  "description": "Agente de impressão universal para aplicações web/mobile",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "npm run build:mkdir && npm run build:blob && npm run build:exe",
+    "build:mkdir": "if not exist dist mkdir dist",
+    "build:blob": "node --experimental-sea-config sea-config.json",
+    "build:exe": "copy /b node.exe+sea-prep.blob dist\\print-agent.exe"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "escpos": "^3.0.0-alpha.6",
+    "escpos-usb": "^3.0.0-alpha.4",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nexe": "^4.0.0-beta.19",
+    "patch-package": "^8.0.0"
+  },
+  "overrides": {
+    "usb": "1.9.2"
+  }
+}
